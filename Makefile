@@ -61,7 +61,7 @@ CFLAGS_LIB = $(CFLAGS_FAST) -fPIC
 LDFLAGS_LIB = $(LDFLAGS) -shared
 
 INSTALL ?= install
-PREFIX ?= /usr/local
+PREFIX ?= /usr/local/http-parser/
 LIBDIR = $(PREFIX)/lib
 INCLUDEDIR = $(PREFIX)/include
 
@@ -114,6 +114,7 @@ library: libhttp_parser.o
 
 package: http_parser.o
 	$(AR) rcs libhttp_parser.a http_parser.o
+	cp -af libhttp_parser.a $(PREFIX)/lib
 
 url_parser: http_parser.o contrib/url_parser.c
 	$(CC) $(CPPFLAGS_FAST) $(CFLAGS_FAST) $^ -o $@
