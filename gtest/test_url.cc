@@ -37,11 +37,12 @@ void dump_url (const char *url, const struct http_parser_url *u)
 	for (i = 0; i < UF_MAX; i++)
 	{
 		printf("url_field:%s\t", http_parser_url_fields_name(i));
+
+		//通过field_set来可以判断field是否被设置
 		if ((u->field_set & (1 << i)) == 0)
 		{
 			printf("\tfield_data[%u]: unset\n", i);
 			continue;
-
 		}
 
 		printf("\tfield_data[%u]: off: %u len: %u part: \"%.*s\n\"", 
@@ -51,13 +52,11 @@ void dump_url (const char *url, const struct http_parser_url *u)
 				u->field_data[i].len,
 				url + u->field_data[i].off);
 	}
-
 }
 
 int main()
 {
 	char *url = (char *)"http://www.baidu.com:8000/users?username=zhangsan#bar";
-
 	printf("url:[%s]\n", url);
 
 	struct http_parser_url u;
